@@ -4,4 +4,5 @@ export interface HealthBarConfig  {
   width: number;
   height: number;
   color: string;
+  bgColor: string;
 }

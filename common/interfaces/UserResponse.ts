@@ -10,4 +10,5 @@ export interface UserResponse extends PositionResponse {
   width: number;
   height: number;
   health: number;
+  attackable: boolean;
 }

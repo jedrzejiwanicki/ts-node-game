@@ -18,6 +18,7 @@ export class Tile extends BaseTile {
       width: this.width,
       height: this.height,
       spriteKey: this.spriteKey,
+      attackable: this.attackable,
     }
   }
 }

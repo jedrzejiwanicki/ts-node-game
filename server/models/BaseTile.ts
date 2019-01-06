@@ -23,6 +23,7 @@ export abstract class BaseTile {
       y: this.position.y,
       width: this.width,
       height: this.height,
+      attackable: this.attackable,
     }
   }
 }

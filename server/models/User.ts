@@ -31,7 +31,12 @@ export class User extends BaseTile {
       direction: this.direction,
       movement: this.movement,
       spriteIndex: this.spriteIndex,
+      attackable: this.attackable,
     }
+  }
+
+  decrementHealth(): void {
+    this.health -= 5;
   }
 
   updateDirection(direction: Direction) {

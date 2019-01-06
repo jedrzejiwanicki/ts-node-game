@@ -5,6 +5,7 @@ import {PositionXUpdatePayload} from '@interfaces/PositionXUpdatePayload';
 import {PositionYUpdatePayload} from '@interfaces/PositionYUpdatePayload';
 import { UserResponse } from '@interfaces/UserResponse';
 import { User } from '../models/User';
+import {AttackService} from './AttackService';
 import {CollisionService} from './CollisionService';
 import { DataService } from './DataService';
 
@@ -12,6 +13,7 @@ export class UserService {
   static instance: UserService;
   private dataService: DataService = new DataService();
   private collisionService: CollisionService = new CollisionService();
+  private attackService: AttackService = new AttackService();
 
   constructor() {
     if (UserService.instance) {
@@ -45,6 +47,18 @@ export class UserService {
     return users.map((user: User) => user.response())
   }
 
+  performDamage(user: User) {
+    user.decrementHealth();
+    this.dataService.update('user', user.response().id, user);
+
+    if (user.response().health < 0) {
+      this.remove(user.response().id);
+      global.io.emit(`server.user.${user.response().id}.removed`);
+    } else {
+      global.io.emit(`server.user.${user.response().id}.update`, user.response())
+    }
+  }
+
   updateDirection(data: DirectionUpdatePayload) {
     const user: User = this.dataService.get('user', data.id);
 
@@ -59,11 +73,15 @@ export class UserService {
 
   updateMovement(data: MovementUpdatePayload) {
     const user: User = this.dataService.get('user', data.id);
+    const attacked: User | undefined = this.attackService.getAttacked(data);
 
     if (!user) {
       return;
     }
 
+    if (attacked) {
+      this.performDamage(attacked);
+    }
 
     user.updateMovement(data.status);
 

@@ -4,4 +4,5 @@ export interface BaseTileResponse extends PositionResponse {
   width: number;
   height: number;
   id: number;
+  attackable: boolean;
 }
