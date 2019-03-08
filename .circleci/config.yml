@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.15.3
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      # run tests!
+      - run: npm run build-prod
+  deploy:
+    - image: circleci/node:10.15.3
+    
+    steps:
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+      - run:
+        name: AWS Deploy
+        command: |
+           command: if [ "${CIRCLE_BRANCH}" == "master" ]; then ssh iwan@ec2-3-17-148-8.us-east-2.compute.amazonaws.com 'cd /home/iwan && touch TEST_TEST';
+      
+    
