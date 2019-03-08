@@ -1,5 +1,5 @@
 export function getBasePath(): string {
-  return 'http://3.17.148.8:3001';
+  return <string>process.env.API;
 }
 
 export function getUserPath(): string {

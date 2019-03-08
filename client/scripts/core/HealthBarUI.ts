@@ -17,7 +17,6 @@ export class HealthBarUI {
   }
 
   draw(): void {
-    console.log(this.health);
     this.context.fillStyle = healthBarConfig.bgColor;
     this.context.fillRect(
       this.x - healthBarConfig.offsetX,

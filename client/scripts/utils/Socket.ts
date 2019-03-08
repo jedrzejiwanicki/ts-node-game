@@ -14,7 +14,7 @@ export class Socket {
   }
 
   connect(): void {
-    this.socket = SocketIO('http://localhost:3001');
+    this.socket = SocketIO(`${process.env.API}`);
   }
 
   getInstance(): any {
