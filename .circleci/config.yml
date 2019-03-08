@@ -1,4 +1,5 @@
 version: 2
+      
 jobs:
   build:
     docker:
@@ -8,8 +9,6 @@ jobs:
 
     steps:
       - checkout
-
-      # Download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
@@ -21,19 +20,33 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # run tests!
-      - run: npm run build-prod
-  deploy:
-    docker:
-      - image: circleci/node:chakracore-10.13.0
-    
-    steps:
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
       - run:
-        name: AWS Deploy
-        command: |
-           command: if [ "${CIRCLE_BRANCH}" == "master" ]; then ssh iwan@ec2-3-17-148-8.us-east-2.compute.amazonaws.com 'cd /home/iwan && touch TEST_TEST';
+          name: Build bundle
+          command: npm run build-prod
+  deploy:
+    machine:
+      enabled: true
+    working_directory: ~/repo-name
+    steps:
+      - run:
+          name: Add to known hosts
+          command: touch ~/.ssh/known_hosts && ssh-keyscan 3.17.148.8 >> ~/.ssh/known_hosts
+      - add_ssh_keys: 
+          fingerprints:
+            - 84:df:60:8d:3b:81:2f:78:82:9b:cf:7e:bf:12:6a:41
+      - run:
+          name: AWS Deploy
+          command: ssh iwan@ec2-3-17-148-8.us-east-2.compute.amazonaws.com 'bash /home/iwan/deploy/game.sh'
       
-    
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+      
