@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "npm run build-client && npm run build-server",
+    "build-client": "webpack",
     "dev": "webpack-dev-server",
     "build-server": "webpack --config webpack.server.config.js",
-    "run-server": "nodemon './server/dist/app.js'",
+    "run-server": "node './server/dist/app.js'",
     "lint": "tslint -t verbose -c tslint.json ./client/**/*.ts"
   },
   "author": "",
@@ -38,6 +39,7 @@
     "socket.io-client": "^2.2.0",
     "ts-loader": "^5.3.2",
     "tslint-config-airbnb": "^5.11.1",
+    "typescript": "^3.3.3333",
     "url-loader": "^1.1.2",
     "webpack-dev-server": "^3.1.14"
   }

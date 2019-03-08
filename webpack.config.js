@@ -5,15 +5,9 @@ module.exports = {
 	entry:  path.resolve(__dirname, 'client','scripts', 'main.ts'),
 	output: {
 		filename: 'main.js',
-		path: path.resolve(__dirname, 'client','dist'),
-		publicPath: path.resolve(__dirname, 'client','dist')
+		path: path.resolve(__dirname, 'client','dist/'),
+		publicPath: path.resolve(__dirname, 'client','dist/')
 	},
-	devServer: {
-		contentBase: path.join(__dirname, 'client', 'dist'),
-		compress: true,
-		port: 5000
-	},
-	watch: true,
 	module: {
 		rules: [
 			{
@@ -26,9 +20,6 @@ module.exports = {
 				use: [
 					{
 						loader: 'url-loader',
-						options: {
-							limit: 8192
-						}
 					}
 				]
 			}
@@ -50,6 +41,8 @@ module.exports = {
 		}
 	},
 	plugins: [
-		new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'client','index.html')})
+		new HtmlWebpackPlugin({ 
+			template: path.resolve(__dirname, 'client','index.html'),
+		})
 	]
 };

@@ -1,5 +1,6 @@
 import { getUsersRequest } from '@api/user';
 import { ClientDataService } from '@core/ClientDataService';
+import { Player } from '@core/Player';
 import { DataDirectory } from '@utils/DataDirectory';
 import { Socket } from '@utils/Socket';
 import { UserResponse } from '@interfaces/UserResponse';
@@ -7,6 +8,7 @@ import { UserResponse } from '@interfaces/UserResponse';
 export class UserDataService {
   private data: DataDirectory = new ClientDataService().getInstance();
   private socket: Socket = new Socket();
+  private player: Player = new Player();
 
   private getInitialUsers(): Promise<any> {
     return getUsersRequest()
@@ -21,7 +23,13 @@ export class UserDataService {
 
     instance.on(`server.user.${id}.update`, (user: UserResponse) => this.data.update('user', user.id, user));
     instance.on(`server.user.${id}.removed`, () => this.data.remove('user', id));
-    instance.on(`server.user.${id}.error`, () => location.reload());
+    instance.on(`server.user.${id}.error`, () => {
+      this.data.remove('user', id)
+
+      if (this.player.id === id) {
+        location.reload();
+      }
+    });
   }
 
   private subscribeToNewUser() {

@@ -7,7 +7,7 @@ import { createUserRequest } from '@api/user';
 
 export class Player {
   static instance: Player;
-  private id: number;
+  public id: number;
   private position: PlayerPosition = new PlayerPosition(0, 0);
   private socket: Socket = new Socket();
   private direction: PlayerDirection = new PlayerDirection();

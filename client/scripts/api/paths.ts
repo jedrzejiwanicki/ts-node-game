@@ -1,5 +1,5 @@
 export function getBasePath(): string {
-  return 'http://localhost:3001';
+  return 'http://3.17.148.8:3001/';
 }
 
 export function getUserPath(): string {

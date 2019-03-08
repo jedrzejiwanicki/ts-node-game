@@ -3,6 +3,8 @@ import { Context } from './core/Context';
 
 const canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById('canvas');
 
-new Context().register(canvas);
-new Game().init();
+(function(){
+  new Context().register(canvas);
+  new Game().init();
+})();
 

@@ -7,7 +7,6 @@ module.exports = {
 		publicPath: path.resolve(__dirname, 'server','dist')
 	},
 	target: "node",
-	watch: true,
 	module: {
 		rules: [
 			{
