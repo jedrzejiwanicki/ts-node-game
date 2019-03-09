@@ -14,7 +14,7 @@ export class Socket {
   }
 
   connect(): void {
-    this.socket = SocketIO(`${process.env.HOSTNAME}`, { path: '/api/socket.io' });
+    this.socket = SocketIO(`${process.env.HOSTNAME}`, { path: '/api/socket.io', transports: ['websocket'] });
   }
 
   getInstance(): any {
