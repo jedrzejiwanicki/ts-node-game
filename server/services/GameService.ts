@@ -1,3 +1,5 @@
+import {MessagePayload} from '@interfaces/MessagePayload';
+import {MessageSocketController} from '../controllers/MessageSocketController';
 import {UserSocketController} from '../controllers/UserSocketController';
 import {DirectionUpdatePayload} from '@interfaces/DirectionUpdatePayload';
 import {MovementUpdatePayload} from '@interfaces/MovementUpdatePayload';
@@ -17,7 +19,8 @@ export class GameService {
       socket.on('client.player.position.x', (data: PositionXUpdatePayload) => new UserSocketController().update('position.x', data))
       socket.on('client.player.position.y', (data: PositionYUpdatePayload) => new UserSocketController().update('position.y', data))
       socket.on('client.player.position.y', (data: PositionYUpdatePayload) => new UserSocketController().update('position.y', data))
-      socket.on('client.player.leave', (id: number) => new UserSocketController().remove(id))
+      socket.on('client.player.leave', (id: number) => new UserSocketController().remove(id));
+      socket.on('client.message.new', (data: MessagePayload) => new MessageSocketController().update(data))
     });
   }
 }

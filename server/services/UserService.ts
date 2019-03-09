@@ -23,8 +23,8 @@ export class UserService {
     UserService.instance = this;
   }
 
-  create(): UserResponse {
-    const user = new User();
+  create(hostname: string): UserResponse {
+    const user = new User(hostname);
 
     this.dataService.add('user', user);
 

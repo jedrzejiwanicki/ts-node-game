@@ -3,6 +3,7 @@ export class DataDirectory {
     'user': [],
     'grid': [],
     'landscape': [],
+    'messages': [],
   };
 
   remove(type: string, id: number) {

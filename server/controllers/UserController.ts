@@ -7,7 +7,9 @@ export class UserController {
   private userService: UserService = new UserService();
 
   create(request: Request, response: Response): Response {
-    const user: UserResponse = this.userService.create();
+    const { name } = request.body;
+    
+    const user: UserResponse = this.userService.create(name || 'Anonymous');
 
     global.io.emit('server.user.new', user);
 

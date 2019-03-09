@@ -8,6 +8,7 @@ import { createUserRequest } from '@api/user';
 export class Player {
   static instance: Player;
   public id: number;
+  public name: string;
   private position: PlayerPosition = new PlayerPosition(0, 0);
   private socket: Socket = new Socket();
   private direction: PlayerDirection = new PlayerDirection();
@@ -40,6 +41,8 @@ export class Player {
   }
 
   public registerUser(): Promise<any> {
-    return createUserRequest().then((data) => this.id = data.id)
+    const name: string | null = prompt('Enter user name:');
+    
+    return createUserRequest(name).then(({ id, name }) => { this.id = id; this.name = name})
   }
 }

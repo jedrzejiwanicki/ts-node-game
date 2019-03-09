@@ -13,3 +13,7 @@ export function getGridPath(): string {
 export function getLandscapePath(): string {
   return `${getBasePath()}/landscape`;
 }
+
+export function getMessagesPath(): string {
+  return `${getBasePath()}/messages`;
+}

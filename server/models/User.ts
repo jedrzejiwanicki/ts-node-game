@@ -7,16 +7,17 @@ import {UserResponse} from '@interfaces/UserResponse';
 import {BaseTile} from './BaseTile';
 
 export class User extends BaseTile {
+  public id = Math.random();
   private movement: PlayerMovementStatus = PlayerMovementStatusEnum.Idle;
   private direction: Direction = DirectionEnum.Bottom;
   private spriteIndex: number = 1;
   private spriteIndexInterval: any;
   private health: number = 100;
+  private name: string = 'Anonymous' + this.id;
 
-  public id = Math.random();
-
-  constructor() {
+  constructor(hostname: string) {
     super({ x: 0, y: 0, attackable: true, collidable: true });
+    this.name = hostname;
     this.startSpriteInterval();
   }
 
@@ -32,6 +33,7 @@ export class User extends BaseTile {
       movement: this.movement,
       spriteIndex: this.spriteIndex,
       attackable: this.attackable,
+      name: this.name,
     }
   }
 

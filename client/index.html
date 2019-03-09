@@ -3,8 +3,73 @@
   <head>
     <meta charset="UTF-8">
     <title> App</title>
+    <style>
+      .game__board {
+        position: relative;
+      }
+      
+      .game__messages {
+        position: absolute;
+        bottom: 4px;
+        left: 0;
+        width: 500px;
+        height: 100px;
+        background-color: rgba(0,0,0,0.7);
+        border: 1px solid rgba(255,255,255,0.8);
+      }
+      
+      .game__messages__container {
+        height: 80px;
+        overflow: auto;
+      }
+      
+      .game__messages__input_form {
+        display: flex;
+        width: 100%;
+        border: none;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 0;
+        margin: 0;
+        height: 20px;
+      }
+
+      .game__messages__input {
+        width: 100%;
+        outline: none;
+      }
+      
+      .game__messages__submit {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        outline: none;
+      }
+      
+      .game_message {
+        width: 100%;
+        margin: 3px;
+        font-size: 12px;
+        color: #fff;
+        font-family: "Helvetica Neue";
+        font-weight: 300;
+      }
+      
+    </style>
   </head>
   <body>
-    <canvas id="canvas" width="500" height="500"></canvas>
+    <div class="game__board">
+      <canvas id="canvas" width="500" height="500"></canvas>
+      <div class="game__messages">
+        <div class="game__messages__container" id="game_messages_container">
+          
+        </div>
+        <form class="game__messages__input_form" id="game_messages_form">
+          <input name="message" id="message" type="text" class="game__messages__input">
+          <button type="submit" class="game__messages__submit">submit</button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
