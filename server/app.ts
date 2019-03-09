@@ -20,7 +20,7 @@ new GameService().init();
 
 app.use(express.static('./client/dist/'));
 
-// app.use('/', (req: Request, res: Response) => res.sendFile(path.resolve('./client/dist/index.html')));
+app.use('/', (req: Request, res: Response) => res.sendFile(path.resolve('client', 'dist', 'index.html')));
 app.use(cors());
 app.use('/user', UserRouter);
 app.use('/grid', GridRouter);
