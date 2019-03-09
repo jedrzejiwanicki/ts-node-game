@@ -1,10 +1,13 @@
 const path = require('path');
-module.exports = {
+
+const DotenvPlugin = require('webpack-dotenv-plugin');
+
+module.exports = ({ environment = 'dev' } = {}) => ({
 	entry:  path.resolve(__dirname, 'server', 'app.ts'),
 	output: {
 		filename: 'app.js',
 		path: path.resolve(__dirname, 'server','dist'),
-		publicPath: path.resolve(__dirname, 'server','dist')
+		publicPath: './',
 	},
 	target: "node",
 	module: {
@@ -31,4 +34,10 @@ module.exports = {
 			"@api": path.resolve(__dirname, 'client', 'scripts', 'api')
 		}
 	},
-};
+	plugins: [
+		new DotenvPlugin({
+			sample: path.resolve(__dirname, `.env.${environment}`),
+			path: path.resolve(__dirname, `.env.${environment}`),
+		}),
+	]
+})
