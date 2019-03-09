@@ -12,7 +12,7 @@ import { GameService } from './services/GameService';
 const app = express();
 const server = http.createServer(app);
 
-global.io = SocketIO(server, { serveClient: false });
+global.io = SocketIO(server, { serveClient: false, path: '/socket' });
 
 new GameService().init();
 
@@ -21,8 +21,8 @@ if (process.env.ENVIRONMENT === 'dev') {
 }
 
 app.use(cors());
-app.use('/user', UserRouter);
-app.use('/grid', GridRouter);
-app.use('/landscape', LandscapeRouter);
+app.use('/api/user', UserRouter);
+app.use('/api/grid', GridRouter);
+app.use('/api/landscape', LandscapeRouter);
 
 server.listen(3001);
