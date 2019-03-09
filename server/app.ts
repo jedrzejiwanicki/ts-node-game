@@ -1,8 +1,7 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import SocketIO from 'socket.io';
 import http from 'http';
 import cors from 'cors';
-import path from 'path';
 
 
 import { UserRouter } from './routes/User';
@@ -18,9 +17,6 @@ global.io = SocketIO(server, { serveClient: false });
 
 new GameService().init();
 
-app.use(express.static('./client/dist/'));
-
-app.use('/', (req: Request, res: Response) => res.sendFile(path.resolve('client', 'dist', 'index.html')));
 app.use(cors());
 app.use('/user', UserRouter);
 app.use('/grid', GridRouter);
