@@ -12,7 +12,7 @@ import { GameService } from './services/GameService';
 const app = express();
 const server = http.createServer(app);
 
-global.io = SocketIO(server, { serveClient: false, path: '/socket' });
+global.io = SocketIO(server, { serveClient: false, path: '/api' });
 
 new GameService().init();
 

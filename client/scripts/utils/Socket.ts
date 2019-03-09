@@ -14,7 +14,7 @@ export class Socket {
   }
 
   connect(): void {
-    this.socket = SocketIO(`${process.env.HOSTNAME}`, { path: '/socket' });
+    this.socket = SocketIO(`${process.env.HOSTNAME}`, { path: '/api' });
   }
 
   getInstance(): any {
